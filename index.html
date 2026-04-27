@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero Waste Campus | AR Nagar Engineering College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #1a7a4a;
+      --green-light: #2ecc71;
+      --green-pale: #d4f5e2;
+      --earth: #8b5e3c;
+      --cream: #f5f0e8;
+      --charcoal: #1c1c1c;
+      --gray: #6b7280;
+      --recyc: #22c55e;
+      --nonrecyc: #ef4444;
+      --compost: #f59e0b;
+      --bg: #f8f6f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(248, 246, 240, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,122,74,0.15);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--green);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      font-weight: 500; color: var(--charcoal);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 2.5rem 3rem;
+      gap: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(46,204,113,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace; font-size: 0.75rem;
+      color: var(--green); letter-spacing: 0.12em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 2rem; height: 2px; background: var(--green);
+    }
+    h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.1; margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+    h1 em {
+      font-style: normal; color: var(--green);
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.7;
+      color: var(--gray); max-width: 480px;
+      margin-bottom: 2rem;
+    }
+    .hero-team {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;
+    }
+    .team-chip {
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--green); border-radius: 999px;
+      color: var(--green); background: var(--green-pale);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem; border-radius: 999px;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: #145c38; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,122,74,0.25); }
+    .btn-outline {
+      background: transparent; color: var(--green);
+      border: 2px solid var(--green); margin-left: 0.75rem;
+    }
+    .btn-outline:hover { background: var(--green-pale); }
+
+    /* hero right card */
+    .hero-right {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .stat-card {
+      background: #fff; border-radius: 1.25rem;
+      padding: 1.5rem; border: 1px solid rgba(26,122,74,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      position: relative; overflow: hidden;
+    }
+    .stat-card::after {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%; background: var(--green);
+      border-radius: 4px 0 0 4px;
+    }
+    .stat-card.red::after { background: var(--nonrecyc); }
+    .stat-card.amber::after { background: var(--compost); }
+    .stat-label {
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--gray); margin-bottom: 0.5rem;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2.2rem; color: var(--charcoal);
+    }
+    .stat-value span { font-size: 1rem; font-weight: 400; color: var(--gray); }
+    .stat-sub { font-size: 0.82rem; color: var(--gray); margin-top: 0.3rem; }
+
+    /* ── LIVE TRACKER ── */
+    #tracker {
+      padding: 6rem 2.5rem;
+      background: var(--charcoal);
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    #tracker::before {
+      content: '';
+      position: absolute; bottom: -120px; left: -120px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(46,204,113,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .section-header {
+      text-align: center; margin-bottom: 3.5rem;
+    }
+    .section-eyebrow {
+      font-family: 'Space Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 0.75rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green-light);
+      animation: pulse 1.5s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15;
+    }
+    .section-title.light { color: #fff; }
+    .section-title.dark { color: var(--charcoal); }
+
+    /* live timer */
+    .live-clock {
+      display: flex; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .clock-unit {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 1rem; padding: 1.25rem 1.75rem;
+      text-align: center; min-width: 90px;
+    }
+    .clock-num {
+      font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700;
+      color: var(--green-light); line-height: 1;
+    }
+    .clock-label {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4); margin-top: 0.4rem;
+    }
+
+    /* waste meters */
+    .tracker-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; max-width: 900px; margin: 0 auto 2.5rem;
+    }
+    .waste-meter {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.25rem; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .waste-meter:hover { transform: translateY(-4px); }
+    .meter-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .meter-type {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .meter-type.recyc { color: var(--recyc); }
+    .meter-type.nonrecyc { color: var(--nonrecyc); }
+    .meter-type.compost { color: var(--compost); }
+    .meter-kg {
+      font-family: 'Space Mono', monospace; font-size: 2.4rem;
+      font-weight: 700; color: #fff; line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .meter-unit { font-size: 0.9rem; color: rgba(255,255,255,0.4); font-family: 'DM Sans', sans-serif; }
+    .meter-bar-wrap {
+      margin-top: 1.2rem;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px; height: 6px; overflow: hidden;
+    }
+    .meter-bar {
+      height: 100%; border-radius: 999px;
+      transition: width 1s ease;
+    }
+    .meter-bar.recyc { background: var(--recyc); }
+    .meter-bar.nonrecyc { background: var(--nonrecyc); }
+    .meter-bar.compost { background: var(--compost); }
+    .meter-rate {
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+      color: rgba(255,255,255,0.4); margin-top: 0.75rem;
+    }
+
+    .live-note {
+      text-align: center; font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; color: rgba(255,255,255,0.35);
+      max-width: 550px; margin: 0 auto;
+    }
+
+    /* department bar chart */
+    .dept-section {
+      max-width: 900px; margin: 3rem auto 0;
+    }
+    .dept-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      margin-bottom: 1.25rem; text-align: center;
+    }
+    .dept-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+    .dept-row { display: flex; align-items: center; gap: 1rem; }
+    .dept-name {
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+      color: rgba(255,255,255,0.5); width: 70px; text-align: right; flex-shrink: 0;
+    }
+    .dept-bar-outer {
+      flex: 1; background: rgba(255,255,255,0.07); border-radius: 999px; height: 8px; overflow: hidden;
+    }
+    .dept-bar-inner {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--green-light) 100%);
+      transition: width 1.5s ease;
+    }
+    .dept-val {
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+      color: var(--green-light); width: 50px;
+    }
+
+    /* ── IMPACT ── */
+    #impact {
+      padding: 6rem 2.5rem;
+      background: var(--cream);
+    }
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; max-width: 1000px; margin: 3rem auto 0;
+    }
+    .impact-card {
+      background: #fff; border-radius: 1.25rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(26,122,74,0.1);
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .impact-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,122,74,0.12); }
+    .impact-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .impact-label {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--charcoal); margin-bottom: 0.4rem;
+    }
+    .impact-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+
+    /* ── SOLUTIONS ── */
+    #solutions {
+      padding: 6rem 2.5rem;
+      background: var(--bg);
+    }
+    .solutions-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; max-width: 1000px; margin: 3rem auto 0;
+    }
+    .sol-card {
+      border-radius: 1.25rem; padding: 2rem 1.75rem;
+      position: relative; overflow: hidden;
+      background: #fff; border: 1px solid rgba(26,122,74,0.08);
+    }
+    .sol-num {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 4rem; color: var(--green-pale);
+      position: absolute; top: 0.75rem; right: 1rem; line-height: 1;
+    }
+    .sol-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .sol-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.05rem; color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .sol-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── TEAM ── */
+    #team {
+      padding: 6rem 2.5rem;
+      background: var(--green);
+    }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; max-width: 900px; margin: 3rem auto 0;
+    }
+    .team-card {
+      background: rgba(255,255,255,0.1); border-radius: 1.25rem;
+      padding: 1.75rem 1.25rem; text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.2s;
+    }
+    .team-card:hover { background: rgba(255,255,255,0.18); }
+    .team-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 1rem;
+    }
+    .team-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.9rem; color: #fff; margin-bottom: 0.25rem;
+    }
+    .team-dept {
+      font-family: 'Space Mono', monospace; font-size: 0.68rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal); color: rgba(255,255,255,0.5);
+      padding: 2rem 2.5rem; text-align: center;
+      font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    }
+    footer a { color: var(--green-light); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .tracker-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: repeat(2,1fr); }
+      .solutions-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2,1fr); }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 6rem 1.25rem 2rem; }
+      #tracker, #impact, #solutions, #team { padding: 4rem 1.25rem; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .live-clock { gap: 0.5rem; }
+      .clock-unit { padding: 1rem 1.25rem; min-width: 70px; }
+    }
+
+    /* scroll animation */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>♻️</span> Zero Waste Campus</div>
+  <ul class="nav-links">
+    <li><a href="#tracker">Live Tracker</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left fade-in">
+    <div class="hero-eyebrow">23GN01C · Innovation Through Design Thinking</div>
+    <h1>Building a Future<br /><em>Without Waste</em></h1>
+    <p class="hero-sub">
+      A student-led initiative to transform campus waste management through smart segregation, real-time monitoring, and a culture of sustainability.
+    </p>
+    <div class="hero-team">
+      <span class="team-chip">R. Ragul · ECE</span>
+      <span class="team-chip">R. Harini Sri · Mech</span>
+      <span class="team-chip">A. Subbu Lakshmi · CSE</span>
+      <span class="team-chip">G. Vishva Karthik · IT</span>
+    </div>
+    <div>
+      <a href="#tracker" class="btn btn-primary">↓ Live Tracker</a>
+      <a href="#solutions" class="btn btn-outline">Our Solutions</a>
+    </div>
+  </div>
+  <div class="hero-right fade-in">
+    <div class="stat-card">
+      <div class="stat-label">Daily Waste Generated · Campus</div>
+      <div class="stat-value">~500 <span>kg/day</span></div>
+      <div class="stat-sub">Tractor capacity ≈ 2 tons · 27 sweepers on duty</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-label">Mixed Waste — Recycling Blocked</div>
+      <div class="stat-value">68 <span>%</span></div>
+      <div class="stat-sub">Of waste is improperly segregated at source</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-label">Student Awareness Survey</div>
+      <div class="stat-value">25 <span>responses</span></div>
+      <div class="stat-sub">50% support recycling stations · 33% want composting</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE TRACKER -->
+<section id="tracker">
+  <div class="section-header fade-in">
+    <div class="section-eyebrow">
+      <span class="pulse-dot"></span>
+      Live Estimation · Resets at Midnight
+    </div>
+    <h2 class="section-title light">Real-Time Waste Tracker</h2>
+    <p style="color:rgba(255,255,255,0.45); font-size:0.88rem; margin-top:0.75rem; font-family:'DM Sans',sans-serif;">
+      Estimated waste accumulation since today's campus operations began (6 AM)
+    </p>
+  </div>
+
+  <!-- Clock -->
+  <div class="live-clock fade-in">
+    <div class="clock-unit">
+      <div class="clock-num" id="c-hr">00</div>
+      <div class="clock-label">Hours</div>
+    </div>
+    <div class="clock-unit">
+      <div class="clock-num" id="c-min">00</div>
+      <div class="clock-label">Minutes</div>
+    </div>
+    <div class="clock-unit">
+      <div class="clock-num" id="c-sec">00</div>
+      <div class="clock-label">Seconds</div>
+    </div>
+    <div class="clock-unit" style="min-width:130px;">
+      <div class="clock-num" style="font-size:1.2rem;" id="c-date">--</div>
+      <div class="clock-label">Today's Date</div>
+    </div>
+  </div>
+
+  <!-- Meters -->
+  <div class="tracker-grid fade-in">
+
+    <div class="waste-meter">
+      <div class="meter-icon">♻️</div>
+      <div class="meter-type recyc">Recyclable Waste</div>
+      <div class="meter-kg" id="kg-recyc">0.00</div>
+      <div class="meter-unit">kilograms</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar recyc" id="bar-recyc" style="width:0%"></div>
+      </div>
+      <div class="meter-rate" id="rate-recyc">+0.00 kg/min</div>
+    </div>
+
+    <div class="waste-meter">
+      <div class="meter-icon">🚮</div>
+      <div class="meter-type nonrecyc">Non-Recyclable Waste</div>
+      <div class="meter-kg" id="kg-nonrecyc">0.00</div>
+      <div class="meter-unit">kilograms</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar nonrecyc" id="bar-nonrecyc" style="width:0%"></div>
+      </div>
+      <div class="meter-rate" id="rate-nonrecyc">+0.00 kg/min</div>
+    </div>
+
+    <div class="waste-meter">
+      <div class="meter-icon">🌱</div>
+      <div class="meter-type compost">Compostable / Food Waste</div>
+      <div class="meter-kg" id="kg-compost">0.00</div>
+      <div class="meter-unit">kilograms</div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar compost" id="bar-compost" style="width:0%"></div>
+      </div>
+      <div class="meter-rate" id="rate-compost">+0.00 kg/min</div>
+    </div>
+
+  </div>
+
+  <p class="live-note fade-in">
+    Based on field data: ~500 kg/day total · EEE dept leads at 3.37 kg recyclable · Estimates are proportional to time elapsed since 6:00 AM
+  </p>
+
+  <!-- Department bars -->
+  <div class="dept-section fade-in">
+    <div class="dept-title">Recyclable Waste by Department (kg · measured data)</div>
+    <div class="dept-bars" id="dept-bars"></div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="section-header fade-in">
+    <div class="section-eyebrow" style="color:var(--green);">
+      <span class="pulse-dot" style="background:var(--green);"></span>
+      Why It Matters
+    </div>
+    <h2 class="section-title dark">The Cost of Inaction</h2>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card fade-in">
+      <div class="impact-icon">🌍</div>
+      <div class="impact-label">Environmental</div>
+      <div class="impact-desc">Landfill increase, pollution risk, and biodiversity impact from mixed campus waste</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">💸</div>
+      <div class="impact-label">Economic</div>
+      <div class="impact-desc">High disposal costs, transport expenses, and loss of recyclable value</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">🏫</div>
+      <div class="impact-label">Societal</div>
+      <div class="impact-desc">Unhygienic campus conditions, health risks, and low community awareness</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">🌿</div>
+      <div class="impact-label">Cultural</div>
+      <div class="impact-desc">Weak sustainability culture and low environmental responsibility among students</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="section-header fade-in">
+    <div class="section-eyebrow" style="color:var(--green);">
+      <span class="pulse-dot" style="background:var(--green);"></span>
+      Design Thinking Outputs
+    </div>
+    <h2 class="section-title dark">Our Proposed Solutions</h2>
+  </div>
+  <div class="solutions-grid">
+    <div class="sol-card fade-in">
+      <div class="sol-num">01</div>
+      <div class="sol-icon">🗑️</div>
+      <div class="sol-title">Colour-Coded Segregation Bins</div>
+      <div class="sol-desc">Place clearly labelled bins — green (recyclable), red (non-recyclable), brown (compostable) — at all key campus points including classrooms, hostels, and canteens.</div>
+    </div>
+    <div class="sol-card fade-in">
+      <div class="sol-num">02</div>
+      <div class="sol-icon">📱</div>
+      <div class="sol-title">Digital Awareness Campaign</div>
+      <div class="sol-desc">QR codes near bins, WhatsApp nudges, and weekly waste data dashboards to keep the campus community engaged and informed about their waste habits.</div>
+    </div>
+    <div class="sol-card fade-in">
+      <div class="sol-num">03</div>
+      <div class="sol-icon">🌾</div>
+      <div class="sol-title">On-Campus Composting Unit</div>
+      <div class="sol-desc">Convert canteen and hostel food waste (~200 kg/day estimated) into compost for campus gardens, reducing landfill load and transport cost significantly.</div>
+    </div>
+    <div class="sol-card fade-in">
+      <div class="sol-num">04</div>
+      <div class="sol-icon">📊</div>
+      <div class="sol-title">Waste Monitoring System</div>
+      <div class="sol-desc">Log daily waste by department, track trends over time, and give management real data (not just 2018 records) to optimise collection schedules and resources.</div>
+    </div>
+    <div class="sol-card fade-in">
+      <div class="sol-num">05</div>
+      <div class="sol-icon">🏆</div>
+      <div class="sol-title">Zero Waste Club & Incentives</div>
+      <div class="sol-desc">Form a student-run Zero Waste Club, run monthly competitions between departments, and reward the cleanest department — turning responsibility into pride.</div>
+    </div>
+    <div class="sol-card fade-in">
+      <div class="sol-num">06</div>
+      <div class="sol-icon">📋</div>
+      <div class="sol-title">Policy Enforcement</div>
+      <div class="sol-desc">Introduce a clear campus waste policy with regular audits, strict monitoring by maintenance staff, and visible accountability at all levels of management.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-header fade-in">
+    <h2 class="section-title" style="color:#fff;">The Team Behind It</h2>
+    <p style="color:rgba(255,255,255,0.6); margin-top:0.75rem; font-family:'DM Sans',sans-serif;">
+      A cross-departmental group united by one mission
+    </p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card fade-in">
+      <div class="team-avatar">👨‍💻</div>
+      <div class="team-name">R. Ragul</div>
+      <div class="team-dept">Electronics & Comm.</div>
+    </div>
+    <div class="team-card fade-in">
+      <div class="team-avatar">👩‍🔧</div>
+      <div class="team-name">R. Harini Sri</div>
+      <div class="team-dept">Mechanical Engg.</div>
+    </div>
+    <div class="team-card fade-in">
+      <div class="team-avatar">👩‍💻</div>
+      <div class="team-name">A. Subbu Lakshmi</div>
+      <div class="team-dept">Computer Science</div>
+    </div>
+    <div class="team-card fade-in">
+      <div class="team-avatar">👨‍💡</div>
+      <div class="team-name">G. Vishva Karthik</div>
+      <div class="team-dept">Information Technology</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 College Zero Waste Management · AR Nagar Engineering College · 23GN01C Innovation Through Design Thinking</p>
+  <p style="margin-top:0.5rem;">Built by the Zero Waste Team · <a href="#tracker">↑ Back to Live Tracker</a></p>
+</footer>
+
+<script>
+  // ── DEPARTMENT DATA ──
+  const depts = [
+    { name: 'EEE',   kg: 3.371 },
+    { name: 'MECH',  kg: 2.363 },
+    { name: 'ECE',   kg: 1.590 },
+    { name: 'MAIN',  kg: 1.176 },
+    { name: 'CIVIL', kg: 1.055 },
+    { name: 'IT',    kg: 0.945 },
+    { name: 'CSE',   kg: 1.073 },
+    { name: 'EIE',   kg: 0.568 },
+    { name: 'OFFIC', kg: 0.278 },
+  ];
+  const maxKg = Math.max(...depts.map(d => d.kg));
+
+  const barsEl = document.getElementById('dept-bars');
+  depts.forEach(d => {
+    const pct = (d.kg / maxKg * 100).toFixed(1);
+    barsEl.innerHTML += `
+      <div class="dept-row">
+        <div class="dept-name">${d.name}</div>
+        <div class="dept-bar-outer">
+          <div class="dept-bar-inner" style="width:0%" data-pct="${pct}"></div>
+        </div>
+        <div class="dept-val">${d.kg} kg</div>
+      </div>`;
+  });
+
+  // ── WASTE RATE CONFIG ──
+  // Total ~500 kg over ~14 hrs (6am–8pm)
+  // Split: Recyclable 25%, Non-recyclable 45%, Compostable 30%
+  const TOTAL_KG_DAY = 500;
+  const OPERATIONAL_HOURS = 14; // 6AM to 8PM
+  const KG_PER_SECOND = TOTAL_KG_DAY / (OPERATIONAL_HOURS * 3600);
+  const RATES = {
+    recyc:    KG_PER_SECOND * 0.25,
+    nonrecyc: KG_PER_SECOND * 0.45,
+    compost:  KG_PER_SECOND * 0.30,
+  };
+
+  // ── CLOCK + WASTE UPDATE ──
+  function getElapsedSeconds() {
+    const now = new Date();
+    const start = new Date(now);
+    start.setHours(6, 0, 0, 0);
+    const diff = (now - start) / 1000;
+    return Math.max(0, diff); // clamp at 0 before 6AM
+  }
+
+  function fmt2(n) { return String(n).padStart(2,'0'); }
+  function fmtKg(n) { return n.toFixed(2); }
+
+  function updateClock() {
+    const now = new Date();
+    const elapsed = getElapsedSeconds();
+    const elH = Math.floor(elapsed / 3600);
+    const elM = Math.floor((elapsed % 3600) / 60);
+    const elS = Math.floor(elapsed % 60);
+
+    document.getElementById('c-hr').textContent  = fmt2(elH);
+    document.getElementById('c-min').textContent = fmt2(elM);
+    document.getElementById('c-sec').textContent = fmt2(elS);
+
+    const opts = { day:'2-digit', month:'short', year:'numeric' };
+    document.getElementById('c-date').textContent = now.toLocaleDateString('en-IN', opts);
+
+    // Waste kg
+    const recycKg    = elapsed * RATES.recyc;
+    const nonrecycKg = elapsed * RATES.nonrecyc;
+    const compostKg  = elapsed * RATES.compost;
+    const maxKgBar   = TOTAL_KG_DAY;
+
+    document.getElementById('kg-recyc').textContent    = fmtKg(recycKg);
+    document.getElementById('kg-nonrecyc').textContent = fmtKg(nonrecycKg);
+    document.getElementById('kg-compost').textContent  = fmtKg(compostKg);
+
+    document.getElementById('bar-recyc').style.width    = Math.min(100, recycKg / (maxKgBar*0.25) * 100) + '%';
+    document.getElementById('bar-nonrecyc').style.width = Math.min(100, nonrecycKg / (maxKgBar*0.45) * 100) + '%';
+    document.getElementById('bar-compost').style.width  = Math.min(100, compostKg / (maxKgBar*0.30) * 100) + '%';
+
+    const rPerMin = r => (r * 60).toFixed(3);
+    document.getElementById('rate-recyc').textContent    = `+${rPerMin(RATES.recyc)} kg/min`;
+    document.getElementById('rate-nonrecyc').textContent = `+${rPerMin(RATES.nonrecyc)} kg/min`;
+    document.getElementById('rate-compost').textContent  = `+${rPerMin(RATES.compost)} kg/min`;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // ── ANIMATE DEPT BARS ──
+  setTimeout(() => {
+    document.querySelectorAll('.dept-bar-inner').forEach(el => {
+      el.style.transition = 'width 1.4s ease';
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 800);
+
+  // ── SCROLL FADE-IN ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
